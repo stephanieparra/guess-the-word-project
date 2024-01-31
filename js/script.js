@@ -1,5 +1,5 @@
 //Global Variables//
-const guessedLetters = document.querySelector(".guessed-letters");
+const guessedLettersElement = document.querySelector(".guessed-letters");
 const guessButton = document.querySelector(".guess");
 const letterInput = document.querySelector(".letter");
 const wordInProgress = document.querySelector(".word-in-progress");
@@ -10,6 +10,7 @@ const playAgainButton = document.querySelector(".play-again");
 
 //Tester word//
 const word = "magnolia";
+const guessedLetters = [];
 
 //Display placeholder symbols for the tester word's letters//
 const placeholder = function (word) {
@@ -25,8 +26,17 @@ placeholder(word);
 //Event listener for guess button//
 guessButton.addEventListener("click", function (e) {
   e.preventDefault();
-  const personsGuess = letterInput.value;
-  console.log(personsGuess);
+  //Empty message paragraph//
+  message.innerText = "";
+  //Grab what was entered in the input//
+  const guess = letterInput.value;
+  //Make sure it's a single letter//
+  const goodGuess = validateInput(guess);
+
+  if (goodGuess) {
+    makeGuess(guess);
+  }
+
   letterInput.value = "";
 });
 
@@ -45,5 +55,16 @@ const validateInput = function (input) {
   } else {
     //Finally got a single letter//
     return input;
+  }
+};
+
+//Function to capture input//
+const makeGuess = function (guess) {
+  guess = guess.toUpperCase();
+  if (guessedLetters.includes(guess)) {
+    message.innerText = "You already guessed that letter. Try again!";
+  } else {
+    guessedLetters.push(guess);
+    console.log(guessedLetters);
   }
 };
