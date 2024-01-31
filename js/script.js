@@ -29,3 +29,21 @@ guessButton.addEventListener("click", function (e) {
   console.log(personsGuess);
   letterInput.value = "";
 });
+
+//Function to validate input//
+const validateInput = function (input) {
+  const acceptedLetter = /[a-zA-Z]/;
+  //Check if input is empty//
+  if (input.length === 0) {
+    message.innerText = "Please enter a letter.";
+    //More than one letter typed//
+  } else if (input.length > 1) {
+    message.innerText = "Please enter a single letter.";
+    //A non-letter has been typed//
+  } else if (!input.match(acceptedLetter)) {
+    message.innerText = "Please enter a letter from A-Z.";
+  } else {
+    //Finally got a single letter//
+    return input;
+  }
+};
