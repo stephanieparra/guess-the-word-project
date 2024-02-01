@@ -64,9 +64,9 @@ const makeGuess = function (guess) {
     message.innerText = "You already guessed that letter. Try again!";
   } else {
     guessedLetters.push(guess);
+    showGuessedLetters();
+    updateWordInProgress(guessedLetters);
   }
-  showGuessedLetters();
-  updateWordInProgress(guessedLetters);
 };
 
 //Function to show guessed letters//
@@ -92,5 +92,14 @@ const updateWordInProgress = function (guessedLetters) {
       revealWord.push("●");
     }
   }
-  wordInProgress.innerText = revealWord.join();
+  wordInProgress.innerText = revealWord.join("");
+  checkIfWin();
+};
+
+//Function to check if the player won//
+const checkIfWin = function () {
+  if (word.toUpperCase() === wordInProgress.innerText) {
+    message.classList.add("win");
+    message.innerHTML = `<p class="highlight">You guessed the correct word! Congrats!</p>`;
+  }
 };
