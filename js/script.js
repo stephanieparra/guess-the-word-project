@@ -68,3 +68,14 @@ const makeGuess = function (guess) {
     console.log(guessedLetters);
   }
 };
+
+//Function to show guessed letters//
+const showGuessedLetters = function () {
+  //Clear the list first//
+  guessedLettersElement.innerHTML = "";
+  for (const letter of guessedLetters) {
+    const li = document.createElement("li");
+    li.innerText = letter;
+    guessedLettersElement.append(li);
+  }
+};
