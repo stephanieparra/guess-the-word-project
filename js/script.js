@@ -16,7 +16,6 @@ const guessedLetters = [];
 const placeholder = function (word) {
   const placeholderLetters = [];
   for (const letter of word) {
-    console.log(letter);
     placeholderLetters.push("●");
   }
   wordInProgress.innerText = placeholderLetters.join("");
@@ -65,8 +64,9 @@ const makeGuess = function (guess) {
     message.innerText = "You already guessed that letter. Try again!";
   } else {
     guessedLetters.push(guess);
-    console.log(guessedLetters);
   }
+  showGuessedLetters();
+  updateWordInProgress(guessedLetters);
 };
 
 //Function to show guessed letters//
@@ -78,4 +78,19 @@ const showGuessedLetters = function () {
     li.innerText = letter;
     guessedLettersElement.append(li);
   }
+};
+
+//Function to update word in progress//
+const updateWordInProgress = function (guessedLetters) {
+  const wordUpper = word.toUpperCase();
+  const wordArray = wordUpper.split("");
+  const revealWord = [];
+  for (const letter of wordArray) {
+    if (guessedLetters.includes(letter)) {
+      revealWord.push(letter.toUpperCase());
+    } else {
+      revealWord.push("●");
+    }
+  }
+  wordInProgress.innerText = revealWord.join();
 };
