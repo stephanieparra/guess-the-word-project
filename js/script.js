@@ -3,7 +3,7 @@ const guessedLettersElement = document.querySelector(".guessed-letters");
 const guessButton = document.querySelector(".guess");
 const letterInput = document.querySelector(".letter");
 const wordInProgress = document.querySelector(".word-in-progress");
-const remainingGuesses = document.querySelector(".remaining");
+const remainingGuessesElement = document.querySelector(".remaining");
 const remainingGuessesSpan = document.querySelector(".remaining span");
 const message = document.querySelector(".message");
 const playAgainButton = document.querySelector(".play-again");
@@ -11,6 +11,7 @@ const playAgainButton = document.querySelector(".play-again");
 //Tester word//
 const word = "magnolia";
 const guessedLetters = [];
+const remainingGuesses = 8;
 
 //Display placeholder symbols for the tester word's letters//
 const placeholder = function (word) {
@@ -94,6 +95,26 @@ const updateWordInProgress = function (guessedLetters) {
   }
   wordInProgress.innerText = revealWord.join("");
   checkIfWin();
+};
+
+//Function to count guesses remaining//
+const updateGuessesRemaining = function (guess) {
+  const upperWord = word.toUpperCase();
+  if (!upperWord.includes(guess)) {
+    //bad guess - lose a chance//
+    message.innerText = `Sorry, the word has no ${guess}.`;
+    remainingGuesses -= 1;
+  } else {
+    message.innerText = `Good guess! The word has the letter ${guess}!`;
+  }
+
+  if (remainingGuesses === 0) {
+    message.innerText = `Game over! The word was <span class="highlight">${word}</span>.`;
+  } else if (remainingGuesses === 1) {
+    remainingGuessesSpan.innerText = `${remainingGuesses} guess`;
+  } else {
+    remainingGuessesSpan.innerText = `${remainingGuessesSpan} guesses`;
+  }
 };
 
 //Function to check if the player won//
